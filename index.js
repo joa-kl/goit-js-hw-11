@@ -33,7 +33,6 @@ fetchPictures()
         console.log(error);
     });
 
-
 searchBtn.addEventListener("click", () => {
     fetchPictures()
         .then((pictures) => renderPicturesList(pictures))
