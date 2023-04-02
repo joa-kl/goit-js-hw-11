@@ -22,6 +22,7 @@ const fetchPictures = async () => {
     return pictures;
 };
 
+
 fetchPictures()
     // .then((response) => {
     //     console.log(response);
