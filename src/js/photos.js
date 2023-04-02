@@ -30,3 +30,4 @@ function createCards(hits) {
 
     gallery.insertAdjacentHTML('beforeend', cards);
 }
+
