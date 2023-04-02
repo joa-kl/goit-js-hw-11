@@ -70,6 +70,7 @@ function onSearch(e) {
         .catch(error => console.log(error));
 }
 
+
 // function fetchPictures() {
 //     const URL = `https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`;
 
