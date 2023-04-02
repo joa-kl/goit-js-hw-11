@@ -12,23 +12,6 @@ const searchBtn = document.querySelector(".btn-search");
 
 
 
-
-fetch('https://dummyjson.com/products', {
-    method: "GET",
-})
-    .then((response) => {
-        console.log(response);
-        return response.json();
-    })
-    .then((data) => {
-        const array = Object.values(data.products);
-        console.log("final data:", array);
-        array.forEach((products) => {
-            console.log(products.title);
-        })
-
-    });
-
 // TUTAJ SKONCZYŁAM
 
 const query = "flower"
@@ -47,7 +30,7 @@ fetch(`https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query
             .map((hit) => {
                 return `
                     <li>
-                    < a class="gallery__item" href = "${hit.largeImageURL}" onclick = "return false;" >
+                   
                     <div class="photo-card" id=${hit.id}>
                         <img class="gallery__image" src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" />
                         <div class="info">
@@ -74,7 +57,7 @@ fetch(`https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query
 
 
 
-
+{/* < a class="gallery__item" href="${hit.largeImageURL}" onclick="return false;" ></a> */}
 
 
 

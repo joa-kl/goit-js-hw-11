@@ -3,10 +3,30 @@
 
 
 .gallery {
-    display: inline-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    margin: 0 auto;
 }
 
+.gallery li {
+    max-width: 100%;
+    display: flex;
+    margin: 5px;
+}
 .gallery__image {
     display: flex;
-    max-width: 200px;
+    max-width: 400px;
+   
+   
+
+}
+
+.photo-card {
+    background-color: rgb(250, 204, 238);
+}
+
+.info {
+    padding-left: 10px;
 }
