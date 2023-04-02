@@ -16,7 +16,7 @@ const loadMoreButton = document.querySelector('.btn-more');
 let query = "";
 let totalHits = 0;
 let page = 1;
-const perPage = 40;
+const perPage = 100;
 
 
 searchForm.addEventListener('submit', onSearch);
@@ -49,25 +49,26 @@ function onSearch(e) {
     query = e.currentTarget.searchQuery.value.trim();
     clearFormGallery();
     loadMoreButton.classList.add('is-hidden');
-    if (query === '') {
+    if (query === "") {
         gallery.innerHTML = "";
         noInfoForSearch();
         return;
-    }
+    } 
 
     fetchPictures()
-        .then(({ data }) => {
-            const hits = Object.values(data.hits);
-            if (hits.length === 0) {
-                alertNoContentFound();
+        .then(({ data }) =>
+        {         
+        if (data.totalHits === 0) {
+            alertNoContentFound();
+            console.log(alertNoContentFound());
             } else {
                 renderPicturesList(data);
-                const lightbox = new SimpleLightbox('.gallery a', {
-                    captionDelay: 250,
-                }).refresh();
+                // const lightbox = new SimpleLightbox('.gallery a', {
+                //     captionDelay: 250,
+                // }).refresh();
                 addTotalInfoCounter(data);
 
-                if (hits.length > perPage) {
+                if (data.totalHits > perPage) {
                     loadMoreButton.classList.remove('is-hidden');
                 }
             }
@@ -77,6 +78,7 @@ function onSearch(e) {
 
 
 function renderPicturesList(data) {
+    console.log(data.totalHits);
     const hits = Object.values(data.hits);
     console.log("hits: ", hits);
     const picturesList = hits
@@ -96,16 +98,11 @@ function renderPicturesList(data) {
                         </a>
                      </div>
                 </li>`;
-            // <li>
-            // <img src="${hit.webformatURL}"></img>
-            // <p>Likes: ${hit.likes}</p>
-            // </li>`;
+          
         })
         .join("");
     gallery.innerHTML = picturesList;
-    // hits.forEach((hit) => {
-    //     console.log(hit.pageURL);
-    // })
+  
 };
 
 
@@ -113,7 +110,7 @@ function onLoadMore() {
     page += 1;
     fetchPictures()
         .then(({ data }) => {
-            renderPicturesList(data.hits);
+            renderPicturesList(data);
             const lightbox = new SimpleLightbox('.gallery a', {
                 captionDelay: 250,
             }).refresh();
@@ -133,7 +130,7 @@ function clearFormGallery() {
 }
 
 function addTotalInfoCounter(data) {
-    Notiflix.Notify.success(`Hooray! We found ${data.hits} images.`);
+    Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
 }
 
 function noInfoForSearch() {
