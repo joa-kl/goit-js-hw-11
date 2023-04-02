@@ -3,7 +3,7 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-// import { fetchArticles } from './src/js/pixabay';
+import { fetchArticles } from './src/js/pixabay';
 // import axios from 'axios';
 
 const input = document.querySelector(".input");
@@ -37,7 +37,7 @@ fetchPictures()
 searchBtn.addEventListener("click", () => {
     fetchPictures()
         .then((pictures) => renderPicturesList(pictures))
-        .catch(() => Notiflix.Notify.failure("Oops, there is no country with that name"))
+        .catch(() => Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again."))
     });
 
 
@@ -79,19 +79,20 @@ function renderPicturesList(data) {
     const picturesList = hits
         .map((hit) => {
             return `
-                    <li>
-                   
+                <li class="gallery__item">
                     <div class="photo-card" id=${hit.id}>
-                        <img class="gallery__image" src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" />
-                        <div class="info">
-                            <p class="info__item"> <b>Likes</b> ${hit.likes} </p>
-                            <p class="info__item"> <b>Views</b> ${hit.views} </p>
-                            <p class="info__item"> <b>Comments</b> ${hit.comments} </p>
-                            <p class="info__item"> <b>Downloads</b> ${hit.downloads} </p>
-                        </div>
-                    </div>
-                    </a >
-                    </li>`;
+                        <a  href="${hit.largeImageURL}" onclick="return false;">
+                            <img class="gallery__image" src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" />
+                            <div class="info">
+                                <p class="info__item"> <b>Likes</b> ${hit.likes} </p>
+                                <p class="info__item"> <b>Views</b> ${hit.views} </p>
+                                <p class="info__item"> <b>Comments</b> ${hit.comments} </p>
+                                <p class="info__item"> <b>Downloads</b> ${hit.downloads} </p>
+                            </div>
+                   
+                        </a>
+                     </div>
+                </li>`;
             // <li>
             // <img src="${hit.webformatURL}"></img>
             // <p>Likes: ${hit.likes}</p>
@@ -129,7 +130,7 @@ function clearFormGallery() {
 }
 
 function addTotalInfoCounter(data) {
-    Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    Notiflix.Notify.success(`Hooray! We found ${data.hits} images.`);
 }
 
 function noInfoForSearch() {

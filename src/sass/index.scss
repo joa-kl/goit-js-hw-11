@@ -2,40 +2,122 @@
 @import './example';
 
 
-.gallery {
+.input {
+    width: 300px;
+    border: none;
+    outline: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.search-form {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     padding: 10px;
-    margin: 0 auto;
 }
 
-.gallery li {
-    max-width: 100%;
-    display: flex;
-    margin: 5px;
+.btn-search {
+    width: 40px;
+    cursor: pointer;
+    background-color: rgb(242, 234, 234);
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 10px;
+    font-size: 15px;
 }
-.gallery__image {
-    display: flex;
-    max-width: 400px;
-   
-   
 
+.btn-more {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    width: 150px;
+    padding: 10px 5px;
+    background-color: rgb(62, 79, 236);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: azure;
+}
+
+.btn-more.is-hidden {
+    display: none;
+}
+
+.search-form {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: rgba(45, 20, 187, 0.8);
+    backdrop-filter: blur(4px);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    height: auto;
+}
+
+
+.gallery {
+    margin-left: -10px;
+    padding-top: 60px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery__item {
+    margin-top: 10px;
+    margin-left: 10px;
+    min-width: 320px;
+    overflow: hidden;
+    transition: all 0.3s;
+    border-radius: 5px;
+    flex-basis: calc((100% - 10px) / 5);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+li a {
+    text-decoration: none;
 }
 
 .photo-card {
-    background-color: rgb(250, 204, 238);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.gallery__image {
+    display: block;
+    height: 30vh;
+    object-fit: cover;
+    width: 100%;
 }
 
 .info {
-    padding-left: 10px;
-    
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: space-around;
+    font-size: 13px;
 }
 
 .info__item {
-    display: inline;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000;
 }
 
-.info__item #text {
-    
+.gallery__item {
+    text-decoration: none;
 }
