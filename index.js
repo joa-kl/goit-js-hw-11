@@ -10,11 +10,16 @@ const input = document.querySelector(".input");
 const picturesContainer = document.querySelector(".pictures-container")
 const gallery = document.querySelector('.gallery');
 const searchBtn = document.querySelector(".btn-search");
+const searchForm = document.querySelector('.search-form');
+const loadMoreButton = document.querySelector('.btn-more');
 
 let query = "";
+let totalHits = 0;
 let page = 1;
 const perPage = 40;
 
+searchForm.addEventListener('submit', onSearch);
+loadMoreButton.addEventListener('click', onLoadMore);
 
 const fetchPictures = async () => {
     const response = await fetch(`https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`);
@@ -24,10 +29,6 @@ const fetchPictures = async () => {
 
 
 fetchPictures()
-    // .then((response) => {
-    //     console.log(response);
-    //     return response.json();
-    // })
     .then((data) => renderPicturesList(data))
     .catch(error => {
         console.log(error);
@@ -47,6 +48,7 @@ function onSearch(e) {
     clearFormGallery();
     loadMoreButton.classList.add('is-hidden');
     if (query === '') {
+        gallery.innerHTML = "";
         noInfoForSearch();
         return;
     }
@@ -56,7 +58,7 @@ function onSearch(e) {
             if (data.totalHits === 0) {
                 alertNoContentFound();
             } else {
-                createCards(data.hits);
+                renderPicturesList(data.hits);
                 const lightbox = new SimpleLightbox('.gallery a', {
                     captionDelay: 250,
                 }).refresh();
@@ -69,24 +71,6 @@ function onSearch(e) {
         })
         .catch(error => console.log(error));
 }
-
-
-// function fetchPictures() {
-//     const URL = `https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`;
-
-//     return fetch(`${URL}`)
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(response.status);
-//             }
-//             return response.json();
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-// }
-
-
 
 
 function renderPicturesList(data) {
@@ -120,6 +104,29 @@ function renderPicturesList(data) {
     // })
 };
 
+
+function onLoadMore() {
+    page += 1;
+    fetchPictures()
+        .then(({ data }) => {
+            renderPicturesList(data.hits);
+            const lightbox = new SimpleLightbox('.gallery a', {
+                captionDelay: 250,
+            }).refresh();
+
+            const totalPages = Math.ceil(data.totalHits / perPage);
+
+            if (page === totalPages) {
+                loadMoreButton.classList.add('is-hidden');
+                endOfContent();
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+function clearFormGallery() {
+    gallery.innerHTML = '';
+}
 
 function addTotalInfoCounter(data) {
     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
