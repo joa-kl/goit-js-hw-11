@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
-import 'simplelightbox/dist/simple-lightbox.min.css';
-import { fetchArticles } from './src/js/pixabay';
+import './node_modules/simplelightbox/dist/simple-lightbox.min.css';
+import { fetchPictures } from './src/js/axios';
 import { renderPicturesList } from "./src/js/photos";
 // import axios from 'axios';
 
@@ -28,17 +28,16 @@ const fetchPictures = async () => {
 };
 
 
-fetchPictures()
+fetchPictures(query, page, perPage)
     .then((data) => renderPicturesList(data))
     .catch(error => {
         console.log(error);
     });
 
 searchBtn.addEventListener("click", () => {
-    fetchPictures()
+    fetchPictures(query, page, perPage)
         .then((pictures) => renderPicturesList(pictures))
         .catch((error) => console.log(error))
-        // .catch(() => Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again."))
     });
 
 
@@ -54,7 +53,7 @@ function onSearch(e) {
         return;
     } 
 
-    fetchPictures()
+    fetchPictures(query, page, perPage)
         .then(({ data }) =>
         {         
         if (data.totalHits === 0) {
@@ -77,38 +76,9 @@ function onSearch(e) {
 
 
 
-
-
-gallery.addEventListener('click', openModal);
-
-function openModal(event) {
-    event.preventDefault();
-    if (!event.target.classList.contains('gallery__image')) {
-        return;
-    }
-    const instance = basicLightbox.create(
-        `<img src="${event.target.dataset.source}">`,
-
-        {
-            onShow: instance => {
-                window.addEventListener('keydown', closeModal);
-            }
-        }
-    );
-    function closeModal(event) {
-        if (event.code === 'Escape') {
-            instance.close();
-        }
-    }
-
-    instance.show();
-}
-
-
-
 function onLoadMore() {
     page += 1;
-    fetchPictures()
+    fetchPictures(query, page, perPage)
         .then(({ data }) => {
             renderPicturesList(data);
             const lightbox = new SimpleLightbox('.gallery a', {
@@ -124,6 +94,7 @@ function onLoadMore() {
         })
         .catch(error => console.log(error));
 }
+
 
 function clearFormGallery() {
     gallery.innerHTML = '';
