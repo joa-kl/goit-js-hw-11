@@ -15,17 +15,17 @@ const loadMoreButton = document.querySelector('.btn-more');
 let query = "";
 let totalHits = 0;
 let page = 1;
-const perPage = 100;
+const perPage = 40;
 
 
 searchForm.addEventListener('submit', onSearch);
 loadMoreButton.addEventListener('click', onLoadMore);
 
-const fetchPictures = async () => {
-    const response = await fetch(`https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`);
-    const pictures = await response.json();
-    return pictures;
-};
+// const fetchPictures = async () => {
+//     const response = await fetch(`https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`);
+//     const pictures = await response.json();
+//     return pictures;
+// };
 
 
 fetchPictures(query, page, perPage)
