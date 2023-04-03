@@ -3,10 +3,7 @@ import SimpleLightbox from "simplelightbox";
 import './node_modules/simplelightbox/dist/simple-lightbox.min.css';
 import { fetchPictures } from './src/js/axios';
 import { renderPicturesList } from "./src/js/photos";
-// import axios from 'axios';
 
-// const input = document.querySelector(".input");
-// const picturesContainer = document.querySelector(".pictures-container")
 const gallery = document.querySelector('.gallery');
 const searchBtn = document.querySelector(".btn-search");
 const searchForm = document.querySelector('.search-form');
@@ -17,15 +14,18 @@ let totalHits = 0;
 let page = 1;
 const perPage = 40;
 
+// const { height: cardHeight } = document
+//     .querySelector(".gallery")
+//     .firstElementChild.getBoundingClientRect();
+
+// window.scrollBy({
+//     top: cardHeight * 2,
+//     behavior: "smooth",
+// });
 
 searchForm.addEventListener('submit', onSearch);
 loadMoreButton.addEventListener('click', onLoadMore);
-
-// const fetchPictures = async () => {
-//     const response = await fetch(`https://pixabay.com/api/?key=34935392-24250165e01040adac8554f89&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`);
-//     const pictures = await response.json();
-//     return pictures;
-// };
+// gallery.addEventListener("click", openModal);
 
 
 fetchPictures(query, page, perPage)
@@ -96,6 +96,9 @@ function onLoadMore() {
 }
 
 
+// --------NOTIFLIX NOTIFICATIONS------------
+
+
 function clearFormGallery() {
     gallery.innerHTML = '';
 }
@@ -119,36 +122,6 @@ function alertNoContentFound() {
         'Sorry, there are no images matching your search query. Please try again.'
     );
 }
-//     .then((data) => {
-//         const hits = Object.values(data.hits);
-//         console.log("hits: ", hits);
-//         const picturesList = hits
-//             .map((hit) => {
-//                 return `
-//                     <li>
-                   
-//                     <div class="photo-card" id=${hit.id}>
-//                         <img class="gallery__image" src="${hit.webformatURL}" alt="${hit.tags}" loading="lazy" />
-//                         <div class="info">
-//                             <p class="info__item"> <b>Likes</b> ${hit.likes} </p>
-//                             <p class="info__item"> <b>Views</b> ${hit.views} </p>
-//                             <p class="info__item"> <b>Comments</b> ${hit.comments} </p>
-//                             <p class="info__item"> <b>Downloads</b> ${hit.downloads} </p>
-//                         </div>
-//                     </div>
-//                     </a >
-//                     </li>`;
-                // <li>
-                // <img src="${hit.webformatURL}"></img>
-                // <p>Likes: ${hit.likes}</p>
-                // </li>`;
-        //     })
-        //     .join("");
-        // gallery.innerHTML = picturesList;
-        // hits.forEach((hit) => {
-        //     console.log(hit.pageURL);
-        // })
-    // });
 
 
 
