@@ -83,6 +83,7 @@ function onLoadMore() {
             renderPicturesList(data);
             const lightbox = new SimpleLightbox('.gallery a', {
                 captionDelay: 250,
+            
             }).refresh();
 
             const totalPages = Math.ceil(data.totalHits / perPage);

@@ -25,6 +25,5 @@ function renderPicturesList(data) {
 
     })
     .join("");
-  gallery.innerHTML = picturesList;
-
+  gallery.insertAdjacentHTML('beforeend', picturesList);
 };
